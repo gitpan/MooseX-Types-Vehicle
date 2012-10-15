@@ -20,6 +20,7 @@ MYMETA.yml
 README
 t/00-load.t
 t/01-vin_test.t
+t/02-in_moose.t
 t/boilerplate.t
 t/manifest.t
 t/pod-coverage.t

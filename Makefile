@@ -20,11 +20,11 @@
 #     NAME => q[MooseX::Types::Vehicle]
 #     NO_META => q[1]
 #     PREREQ_PM => { Test::More=>q[0], MooseX::Types::Moose=>q[0.35], MooseX::Types=>q[0.35], ExtUtils::MakeMaker=>q[6.36], Moose=>q[2.06] }
-#     VERSION => q[0.01]
+#     VERSION => q[0.02]
 #     VERSION_FROM => q[lib/MooseX/Types/Vehicle.pm]
 #     dist => { PREOP=>q[$(PERL) -I. "-MModule::Install::Admin" -e "dist_preop(q($(DISTVNAME)))"] }
 #     realclean => { FILES=>q[MYMETA.yml] }
-#     test => { TESTS=>q[t/00-load.t t/01-vin_test.t t/boilerplate.t t/manifest.t t/pod-coverage.t t/pod.t] }
+#     test => { TESTS=>q[t/00-load.t t/01-vin_test.t t/02-in_moose.t t/boilerplate.t t/manifest.t t/pod-coverage.t t/pod.t] }
 
 # --- MakeMaker post_initialize section:
 
@@ -63,11 +63,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = MooseX::Types::Vehicle
 NAME_SYM = MooseX_Types_Vehicle
-VERSION = 0.01
+VERSION = 0.02
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_01
+VERSION_SYM = 0_02
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.01
+XS_VERSION = 0.02
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -259,7 +259,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = MooseX-Types-Vehicle
-DISTVNAME = MooseX-Types-Vehicle-0.01
+DISTVNAME = MooseX-Types-Vehicle-0.02
 
 
 # --- MakeMaker macro section:
@@ -747,7 +747,7 @@ $(MAKE_APERL_FILE) : $(FIRST_MAKEFILE) pm_to_blib
 TEST_VERBOSE=0
 TEST_TYPE=test_$(LINKTYPE)
 TEST_FILE = test.pl
-TEST_FILES = t/00-load.t t/01-vin_test.t t/boilerplate.t t/manifest.t t/pod-coverage.t t/pod.t
+TEST_FILES = t/00-load.t t/01-vin_test.t t/02-in_moose.t t/boilerplate.t t/manifest.t t/pod-coverage.t t/pod.t
 TESTDB_SW = -d
 
 testdb :: testdb_$(LINKTYPE)
@@ -773,7 +773,7 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.01">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.02">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Moose Types for Vehicles (NHSTA 17 char VIN)</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Evan Carroll, C&lt;&lt; &lt;me at evancarroll.com&gt; &gt;&gt;, Evan Carroll &lt;me@evancarroll.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
