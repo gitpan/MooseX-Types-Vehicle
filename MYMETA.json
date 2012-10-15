@@ -1,0 +1,54 @@
+{
+   "abstract" : "Moose Types for Vehicles (NHSTA 17 char VIN)",
+   "author" : [
+      "Evan Carroll, C<< <me at evancarroll.com> >>",
+      "Evan Carroll <me@evancarroll.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Module::Install version 1.06, CPAN::Meta::Converter version 2.112150",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "MooseX-Types-Vehicle",
+   "no_index" : {
+      "directory" : [
+         "inc",
+         "t"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.36",
+            "Test::More" : 0
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.36"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Moose" : "2.06",
+            "MooseX::Types" : "0.35",
+            "MooseX::Types::Moose" : "0.35"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "homepage" : "https://github.com/EvanCarroll/mx-t-vehicle",
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ],
+      "repository" : {
+         "url" : "git://github.com/EvanCarroll/mx-t-vehicle.git"
+      }
+   },
+   "version" : "0.01"
+}
