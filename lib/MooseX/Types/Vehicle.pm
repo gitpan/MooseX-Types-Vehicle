@@ -1,14 +1,60 @@
 package MooseX::Types::Vehicle;
+use 5.008;
 use strict;
 use warnings;
 
 use MooseX::Types -declare => [qw/VIN17/];
 use MooseX::Types::Moose qw/Str/;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 subtype VIN17 , as Str
-	, where { &is_vin_check }
+	, where {
+		my $vin = shift;
+
+		return 0 unless defined $vin;
+
+		## Straigt-1s is a test pattern
+		## return 0 if $vin eq '11111111111111111';
+
+		## Vin must be 17 characters and can not have OIQ
+		if ( $vin =~ /[OIQ_\Wa-z]/  or length $vin != 17 ) {
+			return 0;
+		}
+
+		my ( $wmi, $vds, $vis )             = unpack 'A3A6A8', $vin;
+		my ( $attr, $check )                = unpack 'A5A1', $vds;
+		my ( $model_yr, $plant_code, $seq ) = unpack 'A1A1A6', $vis;
+
+		return 0
+			if $model_yr eq 'U'
+			|| $model_yr eq 'Z'
+			|| $model_yr eq '0'
+		;
+
+		my $numify = $vin;
+		## abcdefghjklmnprstuvwxyz ## 12345678123457823456789 ##
+		$numify =~ tr/ABCDEFGHJKLMNPRSTUVWXYZ/12345678123457923456789/;
+
+		my @values = split '', $numify;
+		my @weights = qw/ 8 7 6 5 4 3 2 10 0 9 8 7 6 5 4 3 2 /;
+
+		my $sum;
+		foreach my $idx ( 0 .. $#values ) {
+			my $product = $values[$idx] * $weights[$idx];
+			$sum += $product;
+		}
+
+		my $new_check = $sum % 11;
+		$new_check = 'X' if $new_check == 10;
+
+		return 0
+			if $new_check ne $check
+		;
+
+		return 1;
+
+	}
 	, message { "Invalid Vin: $_[0]" }
 ;
 coerce VIN17
@@ -19,53 +65,6 @@ coerce VIN17
 		return uc($vin);
 	}
 ;
-
-sub is_vin_check {
-	my $vin = shift;
-
-	return 0 unless defined $vin;
-
-	## Straigt-1s is a test pattern
-	## return 0 if $vin eq '11111111111111111';
-
-	## Vin must be 17 characters and can not have OIQ
-	if ( $vin =~ /[OIQ_\Wa-z]/  or length $vin != 17 ) {
-		return 0;
-	}
-
-	my ( $wmi, $vds, $vis )             = unpack 'A3A6A8', $vin;
-	my ( $attr, $check )                = unpack 'A5A1', $vds;
-	my ( $model_yr, $plant_code, $seq ) = unpack 'A1A1A6', $vis;
-
-	return 0
-		if $model_yr eq 'U'
-		|| $model_yr eq 'Z'
-		|| $model_yr eq '0'
-	;
-
-	my $numify = $vin;
-	## abcdefghjklmnprstuvwxyz ## 12345678123457823456789 ##
-	$numify =~ tr/ABCDEFGHJKLMNPRSTUVWXYZ/12345678123457923456789/;
-
-	my @values = split '', $numify;
-	my @weights = qw/ 8 7 6 5 4 3 2 10 0 9 8 7 6 5 4 3 2 /;
-
-	my $sum;
-	foreach my $idx ( 0 .. $#values ) {
-		my $product = $values[$idx] * $weights[$idx];
-		$sum += $product;
-	}
-
-	my $new_check = $sum % 11;
-	$new_check = 'X' if $new_check == 10;
-
-	return 0
-		if $new_check ne $check
-	;
-
-	return 1;
-
-};
 
 __END__
 

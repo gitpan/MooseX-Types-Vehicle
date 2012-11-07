@@ -1,9 +1,10 @@
 use inc::Module::Install;
 
-name     'MooseX-Types-Vehicle';
-all_from 'lib/MooseX/Types/Vehicle.pm';
-author   q{Evan Carroll <me@evancarroll.com>};
-license  'perl';
+name              'MooseX-Types-Vehicle';
+perl_version_from 'lib/MooseX/Types/Vehicle.pm';
+version_from      'lib/MooseX/Types/Vehicle.pm';
+author            q{Evan Carroll <me@evancarroll.com>};
+license           'perl';
 
 requires 'Moose'                => '2.06';
 requires 'MooseX::Types'        => '0.35';

@@ -1,9 +1,9 @@
 ---
-abstract: 'Moose Types for Vehicles (NHSTA 17 char VIN)'
+abstract: unknown
 author:
-  - 'Evan Carroll, C<< <me at evancarroll.com> >>, Evan Carroll <me@evancarroll.com>'
+  - 'Evan Carroll <me@evancarroll.com>'
 build_requires:
-  ExtUtils::MakeMaker: 6.36
+  ExtUtils::MakeMaker: 6.59
   Test::More: 0
 configure_requires:
   ExtUtils::MakeMaker: 0
@@ -22,4 +22,5 @@ requires:
   Moose: 2.06
   MooseX::Types: 0.35
   MooseX::Types::Moose: 0.35
-version: 0.02
+  perl: 5.008
+version: 0.03
